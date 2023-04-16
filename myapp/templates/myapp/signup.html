@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'myapp/css/bootstrap.css' %}">
+    <title>Index Page</title>
+</head>
+<body class="bg-secondary">
+    <h3>
+        Hi Welcome to our Signup page!!!!
+    </h3>
+    <p>{{msg}}</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Signup">
+        <a href="{% url 'login' %}" style="margin-left: 10px;" class="btn btn-warning">Login</a>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="{% static 'myapp/js/jquery.js' %}"></script>
+    <script src="{% static 'myapp/js/popper.js' %}"></script>
+    <script src="{% static 'myapp/js/bootstrap.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+<p>{{msg}}</p>
+
+{% block h1 %}
+    <h1>Hi, {{request.user.first_name}} Welcome to your dashboard!!!!</h1>
+{% endblock h1 %}
+
+{% block navbar %}
+    <nav>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'logout' %}" class="text-warning">Logout</a></li>
+            {% if request.user.is_teacher %}
+                <li><a href="{% url 'timage' %}">Image_Upload</a></li>
+            {% elif request.user.is_student  %}
+                <li><a href="{% url 'simage' %}">Image_Upload</a></li>
+            {% endif %}
+        {% else %}
+            <li><a href="{% url 'register' %}" class="text-warning">Register</a></li>
+            <li><a href="{% url 'login' %}" class="text-warning">Login</a></li>
+        {% endif %}
+    </nav>
+    <!-- <hr> -->
+
+    <p>First Name : {{request.user.first_name}}</p>
+    <p>Email : {{request.user.email}}</p>
+    <p>Phone Number: {{request.user.mobile}}</p>
+    <hr>
+
+    {% if request.user.is_student %}
+        <!-- Student User    -->
+        <div style="display: flex; ">
+            {% for img in simage %}
+            <div style="padding: 5px;">
+                <img src="{{img.SImage.url}}" alt="" srcset="" style="height: 100px;">
+            </div>
+            {% endfor %}
+        </div>
+        
+    {% elif request.user.is_teacher %}
+     <!-- Teacher User -->
+        <div style="display: flex; ">
+            {% for img in timage %}
+                <div style="padding: 5px;">
+                    <img src="{{img.TImage.url}}" alt="" srcset="" style="height: 100px;">
+                </div>
+            {% endfor %}
+        </div>
+       
+    {% else %}
+        <!-- Admin User -->
+        <div  style="display: flex; ">
+            {% for img in simage %}
+            <div style="padding: 5px;">
+                <img src="{{img.SImage.url}}" alt="" srcset="" style="height: 100px; ">
+            </div>
+            {% endfor %}
+            {% for img in timage %}
+                <div  style="padding: 5px;">
+                    <img src="{{img.TImage.url}}" alt="" srcset="" style="height: 100px;">
+                </div>
+            {% endfor %}
+        </div>
+        
+
+    {% endif %}
+
+
+
+
+    {% endblock navbar %}
